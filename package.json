@@ -12,7 +12,8 @@
     "start": "node dist/server.js",
     "husky:prepare": "husky init",
     "prepare": "husky",
-    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+    "prettier": "prettier --check 'src/**'"
   },
   "keywords": [],
   "author": "Gilberto Medeiros",
