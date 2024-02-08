@@ -1,7 +1,9 @@
 import { FastifyInstance } from "fastify"
 
-import { FindManyAuthorController } from "./controller/author/find-many-author.controller"
+import { FindManyBookController } from "./controller/book/find-many-book.controller"
+import { FindByIdBookController } from "./controller/book/find-by-id-book.controller"
 
-export async function RoutesAuthor(app: FastifyInstance) {
-  app.get("/authors", FindManyAuthorController)
+export async function RoutesBook(app: FastifyInstance) {
+  app.get("/books", FindManyBookController)
+  app.get("/books/:id", FindByIdBookController)
 }

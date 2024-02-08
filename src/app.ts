@@ -1,11 +1,14 @@
 import fastify from "fastify"
-import { RoutesAuthor } from "./infra/http/routes-author"
 import { ZodError } from "zod"
+
 import { env } from "./env"
+import { RoutesAuthor } from "./infra/http/routes-author"
+import { RoutesBook } from "./infra/http/routes-book"
 
 export const app = fastify()
 
 app.register(RoutesAuthor)
+app.register(RoutesBook)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
