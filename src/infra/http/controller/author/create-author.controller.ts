@@ -4,7 +4,7 @@ import { FastifyRequest, FastifyReply } from "fastify"
 import { NotFoundError } from "@/helpers/errors/not-found-error"
 import { makeCreateAuthorUseCase } from "@/helpers/factory/author/make-create-author"
 
-export async function FindByIdAuthorController(
+export async function CreateAuthorController(
   request: FastifyRequest,
   reply: FastifyReply,
 ) {
@@ -13,7 +13,7 @@ export async function FindByIdAuthorController(
     email: z.string().email(),
   })
 
-  const { name, email } = createSchema.parse(request.params)
+  const { name, email } = createSchema.parse(request.body)
 
   try {
     const createAuthor = makeCreateAuthorUseCase()
