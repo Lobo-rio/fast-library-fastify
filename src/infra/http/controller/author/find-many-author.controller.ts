@@ -1,6 +1,5 @@
-import { z } from "zod"
-
 import { FastifyRequest, FastifyReply } from "fastify"
+import { makeFindManyAuthorUseCase } from "@/helpers/factory/author/make-find-many-author"
 
 export async function FindManyAuthorController(
   request: FastifyRequest,

@@ -5,7 +5,7 @@ import { FindManyAuthorController } from "./controller/author/find-many-author.c
 export async function RoutesAuthor(app: FastifyInstance) {
   app.get("/authors", FindManyAuthorController)
   app.get("/authors/:id", FindByIdAuthorController)
-  //app.post("/authors", CreateAuthorController)
+  app.post("/authors", CreateAuthorController)
   //app.patch("/authors/:id", UpdateAuthorController)
   //app.delete("/authors/:id", DeleteAuthorController)
 }
