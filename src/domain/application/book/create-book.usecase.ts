@@ -1,4 +1,5 @@
 import { Book, Prisma } from "@prisma/client"
+
 import { BookAbstractRepository } from "@/domain/enterprise/book/book-abstract.repository"
 
 export class CreateBookUseCase {
