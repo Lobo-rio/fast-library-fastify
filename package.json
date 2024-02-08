@@ -10,10 +10,9 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsup src --out-dir build",
     "start": "node dist/server.js",
-    "husky:prepare": "husky install",
+    "husky:prepare": "husky init",
     "prepare": "husky",
-    "lint": "eslint src --ext .ts",
-    "lint:fix": "eslint src --ext .ts --fix"
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix"
   },
   "keywords": [],
   "author": "Gilberto Medeiros",
@@ -34,6 +33,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.9.1",
+    "dotenv": "^16.4.1",
     "fastify": "^4.26.0",
     "zod": "^3.22.4"
   }
