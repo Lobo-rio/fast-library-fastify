@@ -16,8 +16,7 @@ model Author {
   name      String?
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
-  posts     Book[]
-
+  
   @@map("authors")
 }
 
@@ -29,7 +28,6 @@ model Book {
   published Boolean?  @default(false)
   createdAt DateTime  @default(now()) @map("created_at")
   updatedAt DateTime? @updatedAt @map("updated_at")
-  author    Author?   @relation(fields: [authorId], references: [id])
-
+  
   @@map("books")
 }

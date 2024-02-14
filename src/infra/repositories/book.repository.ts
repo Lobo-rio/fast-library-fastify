@@ -2,7 +2,9 @@ import { Book, Prisma } from "@prisma/client"
 
 import { BookAbstractRepository } from "@/domain/enterprise/book/book-abstract.repository"
 import { prismaProvider } from "../database/prisma.provider"
-import { clientRedis } from "@/core/redis/redis.provider"
+import { RedisService } from "@/core/redis/redis.service"
+
+const redis = new RedisService()
 
 export class BookRepository implements BookAbstractRepository {
   async findById(id: Prisma.BookWhereUniqueInput): Promise<Book | null> {
@@ -12,14 +14,17 @@ export class BookRepository implements BookAbstractRepository {
   }
 
   async findMany(): Promise<Book[]> {
-    let books = await clientRedis.get("booksMany")
+    const booksRedis = await redis.get("booksMany")
 
-    if (!books) {
-      books = await prismaProvider.book.findMany()
-      await clientRedis.setEx("booksMany", 3, JSON.stringify(books))
+    if (!booksRedis) {
+      const books = await prismaProvider.book.findMany()
+      await redis.set("booksMany", JSON.stringify(books), "EX", 10)
+      console.log("From database!")
+      return books
     }
 
-    return books
+    console.log("From cache!")
+    return JSON.parse(booksRedis)
   }
 
   async create(data: Prisma.BookCreateInput): Promise<Book> {

@@ -24,5 +24,5 @@ app.setErrorHandler((error, _, reply) => {
     // TODO: Here we should log to an external too like Datadog/NewRelic/Sentry
   }
 
-  return reply.status(500).send({ message: "Internal server error!" })
+  return reply.status(500).send({ message: `Internal server error! ${error}` })
 })

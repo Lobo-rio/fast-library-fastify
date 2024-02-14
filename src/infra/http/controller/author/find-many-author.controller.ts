@@ -13,7 +13,9 @@ export async function FindManyAuthorController(
     return reply.status(200).send(authors)
   } catch (error) {
     if (error) {
-      return reply.status(500).send({ message: "Internal server error" })
+      return reply
+        .status(500)
+        .send({ message: `Internal server error! ${error}` })
     }
 
     throw error

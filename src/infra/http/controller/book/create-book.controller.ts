@@ -15,12 +15,19 @@ export async function CreateBookController(
     published: z.boolean(),
   })
 
-  const { title, content, published } = createSchema.parse(request.body)
+  const { authorId, title, content, published } = createSchema.parse(
+    request.body,
+  )
 
   try {
     const createBook = makeCreateBookUseCase()
 
-    const book = await createBook.execute({ title, content, published })
+    const book = await createBook.execute({
+      authorId,
+      title,
+      content,
+      published,
+    })
 
     return reply.status(200).send(book)
   } catch (error) {
