@@ -1,5 +1,7 @@
 import { AuthorAbstractRepository } from "@/domain/enterprise/author/author-abstract.repository"
 import { Author, Prisma } from "@prisma/client"
+
+import { clientRedis } from "@/core/redis/redis.provider"
 import { prismaProvider } from "../database/prisma.provider"
 
 export class AuthorRepository implements AuthorAbstractRepository {
@@ -18,7 +20,13 @@ export class AuthorRepository implements AuthorAbstractRepository {
   }
 
   async findMany(): Promise<Author[]> {
-    const authors = await prismaProvider.author.findMany()
+    let authors = await clientRedis.get("authorsMany")
+
+    if (!authors) {
+      authors = await prismaProvider.author.findMany()
+      await clientRedis.setEx("authorsMany", 3, JSON.stringify(authors))
+    }
+
     return authors
   }
 
